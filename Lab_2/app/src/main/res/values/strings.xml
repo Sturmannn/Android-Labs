@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lab_2</string>
+    <string name="SquareTextField">Квадрат</string>
+    <string name="menuButton">Main Menu</string>
+</resources>
