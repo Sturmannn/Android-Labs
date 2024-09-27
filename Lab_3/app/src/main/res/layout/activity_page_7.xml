@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_page_7"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@color/page_background"
+    tools:context=".Activity_page_7">
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_background"
+            android:padding="20dp"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="50dp">
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginTop="16dp" />
+
+            <Button
+                android:id="@+id/btnShowSelection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Показать выбор"
+                android:layout_marginTop="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_background"
+            android:padding="20dp"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="50dp">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchControl"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:text="Переключатель" />
+
+            <TextView
+                android:id="@+id/switchStateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Выключен"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:textColor="#FFC107"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_background"
+            android:padding="20dp"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="50dp">
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100" />
+
+            <TextView
+                android:id="@+id/seekBarValueText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Текущее значение: 0"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:fontFamily="monospace"
+                android:layout_marginTop="20dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/menuButton"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:text="@string/menuButton"
+        android:textSize="20sp"
+        android:fontFamily="monospace"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
