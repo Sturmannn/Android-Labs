@@ -13,36 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/rounded_background"
         android:padding="16dp">
 
-        <!-- Текущий счёт -->
-        <TextView
-            android:id="@+id/counterTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="@color/black"
-            android:textSize="48sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="32dp"/>
-
-        <!-- Кнопка для увеличения счёта -->
         <Button
-            android:id="@+id/incrementButton"
+            android:id="@+id/btnStartService"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Добавить единицу"
-            android:layout_marginBottom="16dp"/>
+            android:text="Запустить счётчик" />
 
-        <!-- Кнопка для сброса счёта -->
         <Button
-            android:id="@+id/resetButton"
+            android:id="@+id/btnStopService"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Сбросить счёт"/>
-
+            android:text="Остановить счётчик" />
     </LinearLayout>
 
 
