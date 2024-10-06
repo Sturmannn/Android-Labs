@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -44,6 +46,9 @@ public class Activity_page_1_1 extends AppCompatActivity {
                 fragmentManager.popBackStack();
                 updateStackDepthText(stackDepthText);
             }
+            else {
+                Toast.makeText(Activity_page_1_1.this, "Нет страниц для возврата", Toast.LENGTH_SHORT).show();
+            }
         });
 
         // Обработчик кнопки "Вперёд"
@@ -54,12 +59,23 @@ public class Activity_page_1_1 extends AppCompatActivity {
 
         // Обновляем текст глубины стека при запуске
         updateStackDepthText(stackDepthText);
+
+        // Регистрация обработчика для системной кнопки "Назад"
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                btnBack.performClick();
+            }
+        });
     }
 
     // Метод для добавления нового фрагмента в стек
     private void addNewFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,
+                R.anim.slide_in_left, R.anim.slide_out_right);
 
         // Создаем новый фрагмент
         PageFragment newFragment = PageFragment.newInstance(pageCounter);
