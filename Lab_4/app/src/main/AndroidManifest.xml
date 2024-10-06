@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
@@ -16,10 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lab_4"
         tools:targetApi="31">
+        <activity
+            android:name=".task_1.StackActivity"
+            android:exported="false" />
 
         <service
-            android:name=".task_9.CounterService"
-            android:foregroundServiceType="dataSync"/>
+            android:name=".task_9.CounterForegroundService"
+            android:foregroundServiceType="dataSync" />
 
         <activity
             android:name=".task_9.Activity_page_9"
@@ -63,9 +68,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
     </application>
 
 </manifest>

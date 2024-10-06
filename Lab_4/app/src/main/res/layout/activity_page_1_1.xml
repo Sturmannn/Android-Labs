@@ -9,53 +9,19 @@
     tools:context=".task_1.Activity_page_1_1"
     android:background="@color/page_background">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/stackDepthText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Глубина стека: 0"
-            android:background="@drawable/rounded_background"
-            android:textSize="30sp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:fontFamily="monospace"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Контейнер для фрагментов -->
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
-
-            <Button
-                android:id="@+id/btnBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Назад"
-                android:layout_marginEnd="16dp" />
-
-            <Button
-                android:id="@+id/btnForward"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Вперёд" />
-
-        </LinearLayout>
+    <Button
+        android:id="@+id/buttonForward"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Перейти на первую страницу"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintBottom_toTopOf="@+id/menuButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
         android:id="@+id/menuButton"
@@ -69,10 +35,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    </LinearLayout>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
