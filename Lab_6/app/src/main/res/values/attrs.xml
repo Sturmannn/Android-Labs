@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomButton">
+        <!-- Атрибут для текста кнопки -->
+        <attr name="buttonText" format="string" />
+        <!-- Атрибут для цвета кнопки -->
+        <attr name="buttonColor" format="color" />
+    </declare-styleable>
+</resources>

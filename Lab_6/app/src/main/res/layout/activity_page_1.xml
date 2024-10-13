@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".task_1.Activity_page_1">
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="#6D6A6A"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <View-->
+<!--            android:id="@+id/redLight"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:background="@drawable/circle_shape_black" />-->
+
+<!--        <View-->
+<!--            android:id="@+id/yellowLight"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:background="@drawable/circle_shape_black" />-->
+
+<!--        <View-->
+<!--            android:id="@+id/greenLight"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:background="@drawable/circle_shape_black" />-->
+
+<!--    </LinearLayout>-->
+
+    <com.android.lab_6.task_1.TrafficLight
+        android:id="@+id/trafficLight"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/toggleButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Start"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/menuButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/walkingMan"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/standing_man"
+        android:visibility="visible"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/menuButton"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rounded_background"
+        android:fontFamily="monospace"
+        android:text="@string/menuButton"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
