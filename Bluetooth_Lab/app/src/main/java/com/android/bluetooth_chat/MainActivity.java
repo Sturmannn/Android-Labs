@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -38,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private Button sendButton, discoverButton;
     private ListView messagesListView;
 
+    private TextView phoneNameTextView;
+    private TextView connectedDeviceNameTextView;
+
     private final ArrayList<String> messages = new ArrayList<>();
     private MessageAdapter messageAdapter;
 
@@ -53,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         messageEditText = findViewById(R.id.messageEditText);
         sendButton = findViewById(R.id.sendButton);
         discoverButton = findViewById(R.id.discoverDevicesButton);
+        phoneNameTextView = findViewById(R.id.phoneNameTextView);
+        connectedDeviceNameTextView = findViewById(R.id.connectedDeviceNameTextView);
         messagesListView = findViewById(R.id.messagesListView);
 
         // Настройка адаптера
@@ -66,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Bluetooth is not supported on this device", Toast.LENGTH_LONG).show();
             finish();
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.BLUETOOTH_CONNECT}, REQUEST_PERMISSIONS);
+        }
+        phoneNameTextView.setText(bluetoothAdapter.getName());
 
         // Лаунчер для включения Bluetooth
         enableBtLauncher = registerForActivityResult(
@@ -123,16 +134,20 @@ public class MainActivity extends AppCompatActivity {
                     case BluetoothChatService.MESSAGE_READ:
                         Log.d("BluetoothChatService", "Received: " + new String((byte[]) msg.obj, 0, msg.arg1));
                         String receivedMessage = new String((byte[]) msg.obj, 0, msg.arg1);
-                        messages.add("Received: " + receivedMessage);
+//                        messages.add("Received: " + receivedMessage);
+                        messages.add(chatService.getConnectedDeviceName() + ": " + receivedMessage);
                         break;
                     case BluetoothChatService.MESSAGE_WRITE:
-//                        Log.d("BluetoothChatService", "Sent: " + sentMessage);
                         Log.d("BluetoothChatService", "Sent: " + new String((byte[]) msg.obj));
                         String sentMessage = new String((byte[]) msg.obj);
-                        messages.add("Sent: " + sentMessage);
+//                        messages.add("Sent: " + sentMessage);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                            requestPermissions(new String[]{android.Manifest.permission.BLUETOOTH_CONNECT}, REQUEST_PERMISSIONS);
+                        }
+                        messages.add(bluetoothAdapter.getName() + ": " + sentMessage);
                         break;
                     case BluetoothChatService.MESSAGE_TOAST:
-//                        Log.d("BluetoothChatService", "Toast: " + msg.obj.toString());
+                        Log.d("BluetoothChatService", "Toast: " + msg.obj.toString());
                         Toast.makeText(MainActivity.this, msg.obj.toString(), Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -147,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "Server started");
     }
 
-//    По-моему здесь не предусмотрен случай, когда несколько раз нажимаешь на эту кнопку
     private void discoverDevices() {
 
         // Отключаем кнопку, пока идет поиск
@@ -176,14 +190,20 @@ public class MainActivity extends AppCompatActivity {
     private void connectToDevice(BluetoothDevice device) {
         if (chatService != null) {
             chatService.connect(device, this);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            connectedDeviceNameTextView.setText(device.getName());
         }
+    }
+
+    private void setConnectedDeviceName(String deviceName) {
+        connectedDeviceNameTextView.setText(deviceName);
     }
 
     private void sendMessage(String message) {
         if (chatService != null) {
             chatService.write(message.getBytes());
-            messages.add("Sent: " + message);
-            messageAdapter.notifyDataSetChanged();
             messageEditText.setText("");
         } else {
             Toast.makeText(this, "Not connected to any device", Toast.LENGTH_SHORT).show();

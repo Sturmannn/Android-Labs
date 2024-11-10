@@ -1,7 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Bluetooth_chat" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+    <!-- Тема по умолчанию -->
+    <style name="Theme.MyApp" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Основные цвета -->
+        <item name="colorPrimary">#BB86FC</item>
+        <item name="colorPrimaryContainer">#3700B3</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#03DAC5</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="backgroundColor">#121212</item>
+        <item name="colorSurface">#1F1F1F</item>
+        <item name="colorOnSurface">#FFFFFF</item>
     </style>
+
 </resources>

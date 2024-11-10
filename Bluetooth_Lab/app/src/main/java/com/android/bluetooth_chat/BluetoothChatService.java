@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import android.widget.TextView;
+
 public class BluetoothChatService {
 
     private static final UUID MY_UUID = UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
@@ -73,6 +75,19 @@ public class BluetoothChatService {
         connectThread.start();
     }
 
+    String getConnectedDeviceName() {
+        if (socket != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && ActivityCompat.checkSelfPermission(activity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                Log.d("BluetoothChatService", "Bluetooth permissions are required for getting connected device name");
+                Message message = handler.obtainMessage(BluetoothChatService.MESSAGE_TOAST, "Bluetooth permissions are required for getting connected device name");
+                handler.sendMessage(message);
+                return null;
+            }
+            return socket.getRemoteDevice().getName();
+        }
+        return null;
+    }
+
     public void startServer(AppCompatActivity activity) {
         this.activity = activity;
 
@@ -101,19 +116,19 @@ public class BluetoothChatService {
     }
 
     public void closeServerSocket() {
-//        try {
-//            if (serverSocket != null) {
-//                serverSocket.close();
-//                Log.d("BluetoothChatService", "ServerSocket closed.");
-//                Message message = handler.obtainMessage(BluetoothChatService.MESSAGE_TOAST, "ServerSocket closed.");
-//                handler.sendMessage(message);
-//            } else {
-//                Log.d("BluetoothChatService", "ServerSocket was already null or closed.");
-//            }
-//        } catch (IOException e) {
-//            Log.d("BluetoothChatService", "Failed to close 'serverSocket': " + e.getMessage());
-//            e.printStackTrace();
-//        }
+        try {
+            if (serverSocket != null) {
+                serverSocket.close();
+                Log.d("BluetoothChatService", "ServerSocket closed.");
+                Message message = handler.obtainMessage(BluetoothChatService.MESSAGE_TOAST, "ServerSocket closed.");
+                handler.sendMessage(message);
+            } else {
+                Log.d("BluetoothChatService", "ServerSocket was already null or closed.");
+            }
+        } catch (IOException e) {
+            Log.d("BluetoothChatService", "Failed to close 'serverSocket': " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private class AcceptThread extends Thread {
@@ -170,6 +185,14 @@ public class BluetoothChatService {
                 Message message = handler.obtainMessage(BluetoothChatService.MESSAGE_TOAST, "Failed to accept connection");
                 handler.sendMessage(message);
             } finally {
+
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView connectedDeviceNameTextView = activity.findViewById(R.id.connectedDeviceNameTextView);
+                        connectedDeviceNameTextView.setText(getConnectedDeviceName());
+                    }
+                });
                 // Закрытие серверного сокета вне метода run()
                 closeServerSocket();
             }
@@ -303,23 +326,7 @@ public class BluetoothChatService {
             byte[] buffer = new byte[1024];
             int bytes;
             int i = 0;
-//            while (true) {
-//                try {
-//                    if (inStream != null) {
-//                        if (inStream.available() > 0) {
-//                            int bytes = inStream.read(buffer);
-//                            Log.d("BluetoothChatService", "Read " + bytes + " bytes from input stream.");
-//                        } else {
-//                            Log.d("BluetoothChatService", "No data available in input stream.");
-//                        }
-//                    } else {
-//                        Log.d("BluetoothChatService", "Input stream is null.");
-//                    }
-//                } catch (IOException e) {
-//                    Log.d("BluetoothChatService", "IOException during read: " + e.getMessage());
-//                    break;
-//                }
-         while (true) {
+            while (true) {
                 try {
                     if (socket.isConnected()) {
                         System.out.println("ConnectedThread iteration: " + i++);
@@ -337,8 +344,8 @@ public class BluetoothChatService {
                     break;
                 }
             }
-            // Закрытие соединения при выходе из цикла чтения
-            closeConnection();
+                // Закрытие соединения при выходе из цикла чтения
+                closeConnection();
         }
 
         private void closeConnection() {
